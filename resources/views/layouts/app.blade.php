@@ -1,10 +1,45 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Siperpus - @yield('title')</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirmDelete(id) {
+            Swal.fire({
+                title: 'Yakin mau dihapus?',
+                text: "Data kategori ini akan hilang permanen!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6', // Warna biru Tailwind
+                cancelButtonColor: '#d33', // Warna merah Tailwind
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal',
+                customClass: {
+                    popup: 'rounded-xl', // Supaya serasi dengan Tailwind rounded
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Panggil form hapus kamu di sini
+                    document.getElementById('delete-form-' + id).submit();
+                }
+            })
+        }
+        @if (session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: "{{ session('success') }}",
+                timer: 2000,
+                showConfirmButton: false
+            });
+        @endif
+    </script>
+
+
     <script>
         tailwind.config = {
             theme: {
@@ -19,6 +54,7 @@
         }
     </script>
 </head>
+
 <body class="bg-slate-50 font-sans">
 
     <aside class="w-64 min-h-screen bg-primary text-white fixed left-0 top-0 flex flex-col z-50">
@@ -33,7 +69,7 @@
 
         <nav class="flex-1 px-4 py-6 space-y-2 text-sm">
             <a href="{{ route('dashboard') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition {{ request()->routeIs('dashboard') ? 'bg-white/10' : '' }}">
+                class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition {{ request()->routeIs('dashboard') ? 'bg-white/10' : '' }}">
                 <span class="w-2 h-2 rounded-full bg-accent2"></span> Dashboard
             </a>
 
@@ -43,15 +79,17 @@
                     <div class="flex items-center gap-3">
                         <span class="w-2 h-2 rounded-full bg-accent1"></span> Data Master
                     </div>
-                    <svg class="w-4 h-4 transition-transform" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    <svg class="w-4 h-4 transition-transform" :class="open ? 'rotate-180' : ''" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
 
                 <div x-show="open" x-transition class="mt-2 ml-6 space-y-1">
                     <a href="#" class="block px-4 py-2 rounded-lg hover:bg-white/10">Anggota</a>
                     <a href="#" class="block px-4 py-2 rounded-lg hover:bg-white/10">Buku</a>
-                    <a href="{{ url('/kategori') }}" class="block px-4 py-2 rounded-lg hover:bg-white/10 {{ request()->is('kategori*') ? 'text-accent2 font-bold' : '' }}">
+                    <a href="{{ url('/kategori') }}"
+                        class="block px-4 py-2 rounded-lg hover:bg-white/10 {{ request()->is('kategori*') ? 'text-accent2 font-bold' : '' }}">
                         Kategori Buku
                     </a>
                 </div>
@@ -63,14 +101,16 @@
         </nav>
 
         <div class="p-4 border-t border-white/10">
-            <a href="{{ url('/') }}" class="flex items-center justify-center gap-2 w-full py-2 bg-accent1 hover:bg-red-600 rounded-xl transition text-xs font-bold text-white">
+            <a href="{{ url('/') }}"
+                class="flex items-center justify-center gap-2 w-full py-2 bg-accent1 hover:bg-red-600 rounded-xl transition text-xs font-bold text-white">
                 Logout
             </a>
         </div>
     </aside>
 
     <div class="ml-64 flex flex-col min-h-screen">
-        <header class="bg-white/80 backdrop-blur-md sticky top-0 border-b border-slate-200 px-8 py-4 flex justify-between items-center z-40">
+        <header
+            class="bg-white/80 backdrop-blur-md sticky top-0 border-b border-slate-200 px-8 py-4 flex justify-between items-center z-40">
             <div>
                 <h2 class="text-xl font-bold text-primary">@yield('title')</h2>
                 <p class="text-xs text-slate-500">Sistem Informasi Perpustakaan</p>
@@ -85,5 +125,38 @@
         </main>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirmDelete(id) {
+            Swal.fire({
+                title: 'Yakin mau dihapus?',
+                text: "Data kategori ini akan hilang permanen!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6', // Warna biru Tailwind
+                cancelButtonColor: '#d33', // Warna merah Tailwind
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal',
+                customClass: {
+                    popup: 'rounded-xl', // Supaya serasi dengan Tailwind rounded
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Panggil form hapus kamu di sini
+                    document.getElementById('delete-form-' + id).submit();
+                }
+            })
+        }
+        @if (session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: "{{ session('success') }}",
+                timer: 2500,
+                showConfirmButton: false
+            });
+        @endif
+    </script>
 </body>
+
 </html>
