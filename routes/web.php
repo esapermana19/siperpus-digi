@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
@@ -32,3 +33,8 @@ Route::get('/kategori/edit/{id}', [KategoriController::class, 'edit'])->name('ka
 
 //Halaman Dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+//Halaman anggota
+Route::get('/anggota', [AnggotaController::class, 'index'])->name('anggota.index');
+//form input anggota
+Route::get('/anggota/create', [AnggotaController::class, 'create'])->name('anggota.create');

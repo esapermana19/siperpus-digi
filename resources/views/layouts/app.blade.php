@@ -86,9 +86,9 @@
                 </button>
 
                 <div x-show="open" x-transition class="mt-2 ml-6 space-y-1">
-                    <a href="#" class="block px-4 py-2 rounded-lg hover:bg-white/10">Anggota</a>
+                    <a href="{{route('anggota.index')}}" class="block px-4 py-2 rounded-lg hover:bg-white/10">Anggota</a>
                     <a href="#" class="block px-4 py-2 rounded-lg hover:bg-white/10">Buku</a>
-                    <a href="{{ url('/kategori') }}"
+                    <a href="{{ route('kategori.index') }}"
                         class="block px-4 py-2 rounded-lg hover:bg-white/10 {{ request()->is('kategori*') ? 'text-accent2 font-bold' : '' }}">
                         Kategori Buku
                     </a>
