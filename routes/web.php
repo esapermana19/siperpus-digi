@@ -27,6 +27,8 @@ route::post('/login', function (Request $request) {
 
 //Form Input Kategori
 Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori.create');
+//Form Edit Kategori
+Route::get('/kategori/edit/{id}', [KategoriController::class, 'edit'])->name('kategori.edit');
 
 //Halaman Dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

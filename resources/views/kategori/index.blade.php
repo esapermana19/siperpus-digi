@@ -17,7 +17,6 @@
                 <span>Tambah</span>
             </a>
         </div>
-
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
             <table class="w-full text-left">
                 <thead class="bg-gray-50 border-b">
