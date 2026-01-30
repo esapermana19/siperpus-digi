@@ -14,18 +14,19 @@
     </div>
     <div class="bg-white p-6 rounded-lg shadow-md mb-8">
         <h4 class="text-lg font-semibold text-gray-700 mb-4">Tambah Anggota Baru</h4>
-        <form action="{{ route('anggota.store') }}" method="POST" class="space-y-4">
+        <form action="{{ route('anggota.update', $anggota->id) }}" method="POST" class="space-y-4">
             @csrf
+            @method('PUT')
             <div class="grid grid-cols-2">
                 <div class="grid grid-cols-2 mt-4">
                     <label for="">NIM</label><br>
-                    <input type="text" name="nim"
+                    <input type="text" name="nim" value="{{ $anggota->nim }}"
                         class="p-2 mt-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
                         placeholder="NIM..." required>
                 </div>
                 <div class="grid grid-cols-2 mt-4">
                     <label for="">Nama</label><br>
-                    <input type="text" name="name"
+                    <input type="text" name="name" value="{{$anggota->name}}"
                         class="p-2 mt-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
                         placeholder="Nama Kategori..." required>
                 </div>
@@ -34,19 +35,19 @@
                     <select name="jenis_kelamin" id=""
                         class="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none">Jenis
                         Kelamin
-                        <option value="Laki-laki">Laki-laki</option>
-                        <option value="Perempuan">Perempuan</option>
+                        <option value="Laki-laki" {{ $anggota->jenis_kelamin == 'Laki-laki' ? 'selected' : ''}}>Laki-laki</option>
+                        <option value="Perempuan" {{ $anggota->jenis_kelamin == 'Perempuan' ? 'selected' : ''}}>Perempuan</option>
                     </select>
                 </div>
                 <div class="grid grid-cols-2 mt-4 ">
                     <label for="">Kelas</label><br>
-                    <input type="text" name="kelas"
+                    <input type="text" name="kelas" value="{{$anggota->kelas}}"
                         class="mt-1 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
                         placeholder="Kelas...">
                 </div>
                 <div class="grid grid-cols-2 mt-4">
                     <label for="">Jurusan</label><br>
-                    <input type="text" name="jurusan"
+                    <input type="text" name="jurusan" value="{{$anggota->jurusan}}"
                         class="p-2 mt-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
                         placeholder="Jurusan">
                 </div>
@@ -54,10 +55,6 @@
             <button type="submit"
                 class="inline-flex items-center gap-1 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
                 <span>Simpan</span>
-            </button>
-            <button type="reset"
-                class="inline-flex items-center gap-1 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
-                <span>Reset</span>
             </button>
         </form>
     </div>

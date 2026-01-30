@@ -12,10 +12,10 @@ class DashboardController extends Controller
     {
         // Mengambil jumlah data yang SUDAH ADA tabelnya
         $totalKategori = Kategori::count();
+        $totalAnggota = \App\Models\Anggota::count();
 
         // Memberikan nilai 0 untuk yang BELUM ADA tabelnya agar tidak error
         $totalBuku = 0;
-        $totalAnggota = 0;
         $totalPinjam = 0;
 
         // Mengambil 5 aktivitas terbaru (Ini aman karena tabelnya sudah kamu migrate)

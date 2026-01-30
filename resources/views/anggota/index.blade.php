@@ -41,11 +41,11 @@
                             <td class="px-6 py-4">{{ $k->jurusan }}</td>
                             <td class="px-6 py-4 text-center">
                                 <div class="flex justify-center gap-2">
-                                    <a href="{{ route('kategori.edit', $k->id) }}"
+                                    <a href="{{ route('anggota.edit', $k->id) }}"
                                         class="bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-1 text-sm rounded transition">
                                         Edit</a>
                                     <form id="delete-form-{{ $k->id }}"
-                                        action="{{ route('kategori.destroy', $k->id) }}" method="POST">
+                                        action="{{ route('anggota.destroy', $k->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="button" onclick="confirmDelete('{{ $k->id }}')"

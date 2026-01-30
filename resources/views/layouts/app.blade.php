@@ -7,36 +7,58 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
+        // Fungsi ini bisa dipanggil kapan saja dari tombol hapus
         function confirmDelete(id) {
             Swal.fire({
                 title: 'Yakin mau dihapus?',
-                text: "Data kategori ini akan hilang permanen!",
+                text: "Data anggota ini akan hilang permanen!",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6', // Warna biru Tailwind
-                cancelButtonColor: '#d33', // Warna merah Tailwind
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
                 confirmButtonText: 'Ya, Hapus!',
                 cancelButtonText: 'Batal',
                 customClass: {
-                    popup: 'rounded-xl', // Supaya serasi dengan Tailwind rounded
+                    popup: 'rounded-xl',
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Panggil form hapus kamu di sini
                     document.getElementById('delete-form-' + id).submit();
                 }
-            })
-        }
-        @if (session('success'))
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil!',
-                text: "{{ session('success') }}",
-                timer: 2000,
-                showConfirmButton: false
             });
-        @endif
+        }
+
+        // Gunakan window.onload agar script pengecekan session/error jalan otomatis setelah page load
+        window.onload = function() {
+            // 1. Tampilkan Pop-up Berhasil
+            @if (session('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: "{{ session('success') }}",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            @endif
+
+            // 2. Tampilkan Pop-up Error Validasi
+            @if ($errors->any())
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    html: `
+                <ul style="text-align: left; list-style-type: disc; margin-left: 20px;">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                `,
+                    confirmButtonColor: '#3085d6',
+                });
+            @endif
+        };
     </script>
 
 
@@ -86,7 +108,8 @@
                 </button>
 
                 <div x-show="open" x-transition class="mt-2 ml-6 space-y-1">
-                    <a href="{{route('anggota.index')}}" class="block px-4 py-2 rounded-lg hover:bg-white/10">Anggota</a>
+                    <a href="{{ route('anggota.index') }}"
+                        class="block px-4 py-2 rounded-lg hover:bg-white/10">Anggota</a>
                     <a href="#" class="block px-4 py-2 rounded-lg hover:bg-white/10">Buku</a>
                     <a href="{{ route('kategori.index') }}"
                         class="block px-4 py-2 rounded-lg hover:bg-white/10 {{ request()->is('kategori*') ? 'text-accent2 font-bold' : '' }}">
@@ -97,6 +120,9 @@
 
             <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition">
                 <span class="w-2 h-2 rounded-full bg-accent2"></span> Peminjaman
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition">
+                <span class="w-2 h-2 rounded-full bg-accent2"></span> Log Activity
             </a>
         </nav>
 

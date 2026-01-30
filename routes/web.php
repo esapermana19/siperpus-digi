@@ -9,9 +9,7 @@ use Illuminate\Http\Request;
 Route::get('/', function () {
     return view('welcome');
 });
-route::get('/kategori', [KategoriController::class, 'index']);
-route::post('/kategori', [KategoriController::class, 'store']);
-Route::resource('kategori', KategoriController::class);
+
 
 //Menampilkan Halaman Login
 route::get('/login', function () {
@@ -26,15 +24,11 @@ route::post('/login', function (Request $request) {
     return redirect()->back()->with('error', 'Email atau Password salah!');
 })->name('login.post');
 
-//Form Input Kategori
-Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori.create');
-//Form Edit Kategori
-Route::get('/kategori/edit/{id}', [KategoriController::class, 'edit'])->name('kategori.edit');
+//Full CRUD (Index, Create, Store, Edit, Update, Destroy)
+Route::resource('kategori', KategoriController::class);
 
 //Halaman Dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-//Halaman anggota
-Route::get('/anggota', [AnggotaController::class, 'index'])->name('anggota.index');
-//form input anggota
-Route::get('/anggota/create', [AnggotaController::class, 'create'])->name('anggota.create');
+//Full CRUD (Index, Create, Store, Edit, Update, Destroy)
+Route::resource('anggota', AnggotaController::class);
