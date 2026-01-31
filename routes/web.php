@@ -3,6 +3,7 @@
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\BukuController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -32,3 +33,6 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 
 //Full CRUD (Index, Create, Store, Edit, Update, Destroy)
 Route::resource('anggota', AnggotaController::class);
+
+//Full CRUD (Index, Create, Store, Edit, Update, Destroy)
+Route::resource('buku', BukuController::class);
