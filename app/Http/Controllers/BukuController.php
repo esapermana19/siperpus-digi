@@ -67,4 +67,37 @@ class BukuController extends Controller
             return redirect()->route('buku.index')->with('success', 'Buku berhasil dihapus');
         }
 
+        //menampilkan form edit buku
+        public function edit($id)
+        {
+            $buku = \App\Models\Buku::findOrFail($id);
+            $kategori = \App\Models\Kategori::all();
+            return view('buku.edit',compact('buku','kategori'));
+        }
+
+        //update
+        public function update(Request $request,$id)
+        {
+            request()->validate([
+                'judul' => 'required',
+                'pengarang' => 'required',
+                'penerbit' => 'required',
+                'tahun_terbit' => 'required',
+                'kategori_id' => 'required',
+                'stok' => 'required',
+            ]);
+            $buku = \App\Models\Buku::findOrFail($id);
+            $buku->update([
+                'judul' => $request->judul,
+                'pengarang' => $request->pengarang,
+                'penerbit' => $request->penerbit,
+                'tahun_terbit' => $request->tahun_terbit,
+                'kategori_id' => $request->kategori_id,
+                'stok' => $request->stok,
+            ]);
+            // 3. TAMBAHKAN BARIS INI: Mencatat log aktivitas tambah
+            \App\Models\LogActivity::addToLog('Mengubah Buku: ' . $request->judul);
+            return redirect()->route('buku.index')->with('success', 'Buku berhasil diubah!');
+        }
+
 }
