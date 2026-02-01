@@ -17,4 +17,10 @@ class Buku extends Model
         'tersedia',
         'dipinjam'
     ];
+
+    public function kategori()
+{
+    // Pastikan nama modelnya 'Kategori' dan foreign key-nya 'kategori_id'
+    return $this->belongsTo(Kategori::class, 'kategori_id');
+}
 }

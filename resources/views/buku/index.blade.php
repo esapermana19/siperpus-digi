@@ -38,8 +38,8 @@
                     <tr class="border-b hover:bg-gray-50">
                         <td class="px-6 py-4">{{ $key + 1 }}</td>
                         <td class="px-6 py-4">{{ $b->kode_buku }}</td>
-                        <td class="px-6 py-4">{{ $b->judul_buku }}</td>
-                        <td class="px-6 py-4">{{ $b->penulis }}</td>
+                        <td class="px-6 py-4">{{ $b->judul }}</td>
+                        <td class="px-6 py-4">{{ $b->pengarang }}</td>
                         <td class="px-6 py-4">{{ $b->penerbit }}</td>
                         <td class="px-6 py-4">{{ $b->tahun_terbit }}</td>
                         <td class="px-6 py-4">{{ $b->kategori->nama_kategori }}</td>
@@ -55,7 +55,7 @@
                                     method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" onclick="confirmDelete('{{ $b->id }}')"
+                                    <button type="button" onclick="confirmDelete('{{ $b->id }}','Buku: ', '{{ $b->judul }}')"
                                         class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 text-sm rounded transition">
                                         Hapus</button>
                                 </form>

@@ -10,10 +10,10 @@
 
     <script>
         // Fungsi ini bisa dipanggil kapan saja dari tombol hapus
-        function confirmDelete(id) {
+        function confirmDelete(id, pesan , data) {
             Swal.fire({
                 title: 'Yakin mau dihapus?',
-                text: "Data anggota ini akan hilang permanen!",
+                text: "Data " + pesan + data + " ini akan hilang permanen!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -150,39 +150,6 @@
             @yield('content')
         </main>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        function confirmDelete(id) {
-            Swal.fire({
-                title: 'Yakin mau dihapus?',
-                text: "Data kategori ini akan hilang permanen!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6', // Warna biru Tailwind
-                cancelButtonColor: '#d33', // Warna merah Tailwind
-                confirmButtonText: 'Ya, Hapus!',
-                cancelButtonText: 'Batal',
-                customClass: {
-                    popup: 'rounded-xl', // Supaya serasi dengan Tailwind rounded
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Panggil form hapus kamu di sini
-                    document.getElementById('delete-form-' + id).submit();
-                }
-            })
-        }
-        @if (session('success'))
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil!',
-                text: "{{ session('success') }}",
-                timer: 2500,
-                showConfirmButton: false
-            });
-        @endif
-    </script>
 </body>
 
 </html>

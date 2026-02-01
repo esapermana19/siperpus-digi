@@ -51,27 +51,21 @@
                 </div>
                 <div class="grid grid-cols-2 mb-4">
                     <label for="kategori_id" class="block text-gray-700 font-semibold mb-2">Kategori</label><br>
-                    <input type="text" name="kategori_id" id="kategori_id"
-                        class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
-                        placeholder="Kategori..." required>
+                    <select name="kategori_id" id="kategori_id"
+                        class="text-gray-700 w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
+                       <option value="" class="text-grey-700">--Pilih Kategori--</option>
+                         @foreach ($kategori as $k)
+                            <option value="{{ $k->id }}" {{ old('kategori_id') == $k->id ? 'selected' : '' }}>
+                                {{ $k->nama_kategori }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="grid grid-cols-2 mb-4">
                     <label for="stok" class="block text-gray-700 font-semibold mb-2">Stok</label><br>
                     <input type="text" name="stok" id="stok"
                         class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
                         placeholder="Stok..." required>
-                </div>
-                <div class="grid grid-cols-2 mb-4">
-                    <label for="tersedia" class="block text-gray-700 font-semibold mb-2">Tersedia</label><br>
-                    <input type="text" name="tersedia" id="tersedia"
-                        class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
-                        placeholder="Tersedia..." required>
-                </div>
-                <div class="grid grid-cols-2 mb-4">
-                    <label for="dipinjam" class="block text-gray-700 font-semibold mb-2">Dipinjam</label><br>
-                    <input type="text" name="dipinjam" id="dipinjam"
-                        class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
-                        placeholder="Dipinjam..." required>
                 </div>
             </div>
             <button type="submit"

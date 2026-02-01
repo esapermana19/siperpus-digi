@@ -42,7 +42,7 @@
                                         action="{{ route('kategori.destroy', $k->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="button" onclick="confirmDelete('{{ $k->id }}')"
+                                        <button type="button" onclick="confirmDelete('{{ $k->id }}','Kategori: ','{{ $k->nama_kategori }}')"
                                             class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 text-sm rounded transition">
                                             Hapus</button>
                                     </form>

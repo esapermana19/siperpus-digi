@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('tahun_terbit');
             $table->string('kategori_id');
             $table->string('stok');
-            $table->string('tersedia');
-            $table->string('dipinjam');
+            $table->string('tersedia')->default(0);
+            $table->string('dipinjam')->default(0);
             $table->timestamps();
         });
     }
