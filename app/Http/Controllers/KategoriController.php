@@ -10,11 +10,15 @@ use Symfony\Polyfill\Intl\Idn\Resources\unidata\Regex;
 class KategoriController extends Controller
 {
     //menampilkan halaman kategori
-    public function index()
+    public function index(Request $request)
     {
-        //mengambil semua data
-        $dataKategori = Kategori::all();
-        // Mengirim data tersebut ke file view: resources/views/kategori/index.blade.php
+        $search = $request->input('search');
+        $dataKategori = Kategori::query()
+            ->when($search, function ($query, $search) {
+                return $query->where('kode_kategori', 'like', "%{$search}%")
+                    ->orWhere('nama_kategori', 'like', "%{$search}%");
+            })
+            ->get();
         return view('kategori.index', compact('dataKategori'));
     }
 

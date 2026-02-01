@@ -4,12 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\returnArgument;
+
 class BukuController extends Controller
 {
     //menampilkan halaman buku
-    public function index()
+    public function index(Request $request)
     {
-        $buku = \App\Models\Buku::all();
+        $search = $request->input('search');
+        $buku = \App\Models\Buku::with('kategori')
+        ->when($search, function($query, $search) {
+            return $query->where('judul', 'like', "%{$search}%")
+                        ->orWhere('pengarang', 'like', "%{$search}%")
+                        ->orWhere('penerbit', 'like', "%{$search}%");
+
+        })
+        ->get();
         return view('buku.index',compact('buku'));
     }
 

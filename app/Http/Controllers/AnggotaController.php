@@ -7,9 +7,17 @@ use Illuminate\Http\Request;
 class AnggotaController extends Controller
 {
     //menampilkan data
-    public function index()
+    public function index(Request $request)
     {
-        $data_anggota = \App\Models\Anggota::all();
+        $search = $request->input('search');
+        $data_anggota = \App\Models\Anggota::query()
+        ->when($search, function($query, $search) {
+            return $query->where('nim', 'like', "%{$search}%")
+                        ->orWhere('name', 'like', "%{$search}%")
+                        ->orWhere('kelas', 'like', "%{$search}%")
+                        ->orWhere('jurusan', 'like', "%{$search}%");
+        })
+        ->get();
         return view('anggota.index',compact('data_anggota'));
     }
 
