@@ -118,10 +118,10 @@
                 </div>
             </div>
 
-            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition">
+            <a href="{{route('peminjaman.index')}}" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition">
                 <span class="w-2 h-2 rounded-full bg-accent2"></span> Peminjaman
             </a>
-            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition">
+            <a href="{{ route('logactivity.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition">
                 <span class="w-2 h-2 rounded-full bg-accent2"></span> Log Activity
             </a>
         </nav>

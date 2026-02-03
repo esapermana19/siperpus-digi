@@ -58,8 +58,26 @@
                             <td class="px-6 py-4">{{ $b->tahun_terbit }}</td>
                             <td class="px-6 py-4">{{ $b->kategori->nama_kategori }}</td>
                             <td class="px-6 py-4 text-center">{{ $b->stok }}</td>
-                            <td class="px-6 py-4 text-center">{{ $b->tersedia }}</td>
-                            <td class="px-6 py-4 text-center">{{ $b->dipinjam }}</td>
+                            <td class="px-6 py-4 text-center">
+                                @if ($b->tersedia > 0)
+                                <span
+                                    class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full border border-green-200 shadow-sm">
+                                    {{ $b->tersedia }} Tersedia
+                                </span>
+                                @else
+                                <span
+                                    class="px-3 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full border border-red-200 shadow-sm">
+                                    {{ $b->tersedia }} Tersedia
+                                </span>
+                                @endif
+                            </td>
+
+                            <td class="px-6 py-4 text-center">
+                                <span
+                                    class="px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-bold rounded-full border border-yellow-200 shadow-sm">
+                                    {{ $b->dipinjam }} Dipinjam
+                                </span>
+                            </td>
                             <td class="px-6 py-4 text-center">
                                 <div class="flex justify-center gap-2">
                                     <a href="{{ route('buku.edit', $b->id) }}"

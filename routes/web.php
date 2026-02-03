@@ -4,6 +4,8 @@ use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BukuController;
+use App\Http\Controllers\LogActivity;
+use App\Http\Controllers\PeminjamanController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -36,3 +38,9 @@ Route::resource('anggota', AnggotaController::class);
 
 //Full CRUD (Index, Create, Store, Edit, Update, Destroy)
 Route::resource('buku', BukuController::class);
+
+//LogActivity CRUD
+Route::resource('logactivity' ,LogActivity::class);
+
+//Peminjaman
+Route::resource('peminjaman', PeminjamanController::class);
