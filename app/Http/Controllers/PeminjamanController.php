@@ -47,7 +47,8 @@ class PeminjamanController extends Controller
                     'tanggal_pinjam' => now(),
                     'tanggal_kembali' => $request->tanggal_kembali,
                 ]);
-
+                // AMBIL NAMA LANGSUNG DARI RELASI MODEL YANG BARU DISIMPAN
+                $namaPeminjam = $peminjaman->anggota->name;
                 foreach ($request->buku_ids as $id_buku) {
                     DetailPeminjaman::create([
                         'peminjaman_id' => $peminjaman->id,
@@ -63,10 +64,50 @@ class PeminjamanController extends Controller
                     }
                 }
             });
+            // 1. Ambil data anggota berdasarkan anggota_id dari request
+            $anggota = \App\Models\Anggota::find($request->anggota_id);
 
+            // 2. Pastikan anggota ditemukan sebelum mencatat log
+            $namaAnggota = $anggota ? $anggota->name : 'Anggota Tidak Dikenal';
+            $nim = $anggota ? $anggota->nim : '-';
+            //catat ke log
+            \App\Models\LogActivity::addToLog('Menambah Peminjaman baru: ' . $request->kode_peminjaman . ' - ' . $namaAnggota . ' (NIM: ' . $nim . ')');
             return redirect()->route('peminjaman.index')->with('success', 'Peminjaman berhasil disimpan!');
         } catch (\Exception $e) {
             return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
+    }
+    public function show($id)
+    {
+        $peminjaman = Peminjaman::with(['anggota', 'details.buku'])->findOrFail($id);
+        return view('peminjaman.show', compact('peminjaman'));
+    }
+
+    public function konfirmasi($id)
+    {
+        $detail = DetailPeminjaman::findOrFail($id);
+        $peminjaman = $detail->peminjaman;
+
+        // 1. Hitung Terlambat & Denda secara real-time saat klik
+        $today = \Carbon\Carbon::today();
+        $jatuhTempo = \Carbon\Carbon::parse($peminjaman->tanggal_kembali);
+        $selisih = $today->diffInDays($jatuhTempo, false);
+        $hariTerlambat = $selisih < 0 ? abs($selisih) : 0;
+        $denda = $hariTerlambat * 1000; // Misal 1000 per hari
+
+        // 2. Update Data Detail Peminjaman
+        $detail->update([
+            'status' => 'kembali',
+            'tanggal_kembali' => $today,
+            'terlambat' => $hariTerlambat,
+            'denda' => $denda
+        ]);
+
+        // 3. Tambahkan Stok Buku Kembali (Opsional)
+        $detail->buku->increment('tersedia');
+        $detail->buku->decrement('dipinjam');
+        //catat ke log
+        \App\Models\LogActivity::addToLog('Mengembalikan Buku: ' . $detail->peminjaman->kode_peminjaman . ' - ' . $detail->buku->judul . ' - ' . $peminjaman->anggota->name);
+        return redirect()->back()->with('success', 'Buku berhasil dikembalikan!');
     }
 }

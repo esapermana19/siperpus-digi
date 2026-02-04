@@ -44,3 +44,6 @@ Route::resource('logactivity' ,LogActivity::class);
 
 //Peminjaman
 Route::resource('peminjaman', PeminjamanController::class);
+
+//konfirmasi
+Route::patch('/peminjaman/detail/{id}/konfirmasi', [PeminjamanController::class, 'konfirmasi'])->name('peminjaman.konfirmasi');
